@@ -164,33 +164,61 @@ function renderFileList() {
 
 // ========== APPOINTMENT FORM SUBMISSION ==========
 const appointmentForm = document.getElementById('appointmentForm');
+const WEB3FORMS_KEY = 'd9a7e3c9-e764-4620-b4c4-05fec546bdac';
 
-appointmentForm.addEventListener('submit', (e) => {
+appointmentForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    const formData = {
-        name: document.getElementById('fullName').value,
-        phone: document.getElementById('phone').value,
-        address: document.getElementById('address').value,
-        doctor: document.getElementById('doctor').value,
-        filesCount: uploadedFiles.length
-    };
+    const submitBtn = appointmentForm.querySelector('button[type="submit"]');
+    const originalBtnText = submitBtn.innerHTML;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+    submitBtn.disabled = true;
 
-    // Show success message
-    appointmentForm.innerHTML = `
-        <div class="form-success">
-            <i class="fas fa-check-circle"></i>
-            <h3>Appointment Request Submitted!</h3>
-            <p>Thank you, <strong>${formData.name}</strong>. Our admin will review your details with <strong>${formData.doctor}</strong> and contact you shortly at <strong>${formData.phone}</strong>.</p>
-            <br>
-            <button class="btn btn-primary" onclick="location.reload()">
-                <i class="fas fa-redo"></i> Book Another
-            </button>
-        </div>
-    `;
+    const formData = new FormData();
+    formData.append('access_key', WEB3FORMS_KEY);
+    formData.append('subject', 'New Appointment Request - GK Clinics');
+    formData.append('from_name', 'GK Clinics Website');
+    formData.append('Full Name', document.getElementById('fullName').value);
+    formData.append('Phone Number', document.getElementById('phone').value);
+    formData.append('Address', document.getElementById('address').value);
+    formData.append('Doctor', document.getElementById('doctor').value);
+    formData.append('Reports Attached', uploadedFiles.length > 0 ? `${uploadedFiles.length} file(s) - Patient will send via WhatsApp` : 'None');
 
-    // Smooth scroll to the success message
-    document.getElementById('appointment').scrollIntoView({ behavior: 'smooth' });
+    try {
+        const response = await fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            body: formData
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+            const name = document.getElementById('fullName').value;
+            const doctor = document.getElementById('doctor').value;
+            const phone = document.getElementById('phone').value;
+
+            appointmentForm.innerHTML = `
+                <div class="form-success">
+                    <i class="fas fa-check-circle"></i>
+                    <h3>Appointment Request Submitted!</h3>
+                    <p>Thank you, <strong>${name}</strong>. Our admin will review your details with <strong>${doctor}</strong> and contact you shortly at <strong>${phone}</strong>.</p>
+                    ${uploadedFiles.length > 0 ? '<p style="margin-top: 10px;"><i class="fas fa-info-circle"></i> Please send your medical reports via <a href="https://wa.me/919700949414" target="_blank" style="color: var(--primary); font-weight: 600;">WhatsApp</a> for the doctor to review.</p>' : ''}
+                    <br>
+                    <button class="btn btn-primary" onclick="location.reload()">
+                        <i class="fas fa-redo"></i> Book Another
+                    </button>
+                </div>
+            `;
+
+            document.getElementById('appointment').scrollIntoView({ behavior: 'smooth' });
+        } else {
+            throw new Error(result.message || 'Submission failed');
+        }
+    } catch (error) {
+        submitBtn.innerHTML = originalBtnText;
+        submitBtn.disabled = false;
+        alert('Something went wrong. Please try again or call us at 9700949414.');
+    }
 });
 
 // ========== AI CHATBOT ==========
