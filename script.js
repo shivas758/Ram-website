@@ -165,26 +165,77 @@ function renderFileList() {
 // ========== APPOINTMENT FORM SUBMISSION ==========
 const appointmentForm = document.getElementById('appointmentForm');
 const WEB3FORMS_KEY = 'd9a7e3c9-e764-4620-b4c4-05fec546bdac';
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzEEObtySciqde1zdmX8G1UYZJe1wJ-FCr368XQuK2e_9uC1IrBba0uMlhpxAUNiTim3A/exec';
+
+// Convert file to Base64
+function fileToBase64(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result.split(',')[1]);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+    });
+}
+
+// Upload a single file to Google Drive
+async function uploadToDrive(file, patientName) {
+    const base64Data = await fileToBase64(file);
+    const response = await fetch(GOOGLE_SCRIPT_URL, {
+        method: 'POST',
+        body: JSON.stringify({
+            fileName: `${patientName} - ${file.name}`,
+            fileType: file.type,
+            fileData: base64Data
+        })
+    });
+    return response.json();
+}
 
 appointmentForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
     const submitBtn = appointmentForm.querySelector('button[type="submit"]');
     const originalBtnText = submitBtn.innerHTML;
-    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
     submitBtn.disabled = true;
 
-    const formData = new FormData();
-    formData.append('access_key', WEB3FORMS_KEY);
-    formData.append('subject', 'New Appointment Request - GK Clinics');
-    formData.append('from_name', 'GK Clinics Website');
-    formData.append('Full Name', document.getElementById('fullName').value);
-    formData.append('Phone Number', document.getElementById('phone').value);
-    formData.append('Address', document.getElementById('address').value);
-    formData.append('Doctor', document.getElementById('doctor').value);
-    formData.append('Reports Attached', uploadedFiles.length > 0 ? `${uploadedFiles.length} file(s) - Patient will send via WhatsApp` : 'None');
+    const name = document.getElementById('fullName').value;
+    const phone = document.getElementById('phone').value;
+    const address = document.getElementById('address').value;
+    const doctor = document.getElementById('doctor').value;
 
     try {
+        // Step 1: Upload files to Google Drive (if any)
+        let fileLinks = [];
+        if (uploadedFiles.length > 0) {
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading reports...';
+            const uploadPromises = uploadedFiles.map(file => uploadToDrive(file, name));
+            const results = await Promise.all(uploadPromises);
+
+            for (const result of results) {
+                if (result.success) {
+                    fileLinks.push(`${result.fileName}: ${result.fileUrl}`);
+                }
+            }
+        }
+
+        // Step 2: Send email via Web3Forms
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Booking appointment...';
+
+        const formData = new FormData();
+        formData.append('access_key', WEB3FORMS_KEY);
+        formData.append('subject', 'New Appointment Request - GK Clinics');
+        formData.append('from_name', 'GK Clinics Website');
+        formData.append('Full Name', name);
+        formData.append('Phone Number', phone);
+        formData.append('Address', address);
+        formData.append('Doctor', doctor);
+
+        if (fileLinks.length > 0) {
+            formData.append('Medical Reports', fileLinks.join('\n'));
+        } else {
+            formData.append('Medical Reports', 'No reports attached');
+        }
+
         const response = await fetch('https://api.web3forms.com/submit', {
             method: 'POST',
             body: formData
@@ -193,16 +244,12 @@ appointmentForm.addEventListener('submit', async (e) => {
         const result = await response.json();
 
         if (result.success) {
-            const name = document.getElementById('fullName').value;
-            const doctor = document.getElementById('doctor').value;
-            const phone = document.getElementById('phone').value;
-
             appointmentForm.innerHTML = `
                 <div class="form-success">
                     <i class="fas fa-check-circle"></i>
                     <h3>Appointment Request Submitted!</h3>
                     <p>Thank you, <strong>${name}</strong>. Our admin will review your details with <strong>${doctor}</strong> and contact you shortly at <strong>${phone}</strong>.</p>
-                    ${uploadedFiles.length > 0 ? '<p style="margin-top: 10px;"><i class="fas fa-info-circle"></i> Please send your medical reports via <a href="https://wa.me/919700949414" target="_blank" style="color: var(--primary); font-weight: 600;">WhatsApp</a> for the doctor to review.</p>' : ''}
+                    ${fileLinks.length > 0 ? '<p style="margin-top: 10px;"><i class="fas fa-check-circle" style="color: green;"></i> Your medical reports have been uploaded successfully.</p>' : ''}
                     <br>
                     <button class="btn btn-primary" onclick="location.reload()">
                         <i class="fas fa-redo"></i> Book Another
