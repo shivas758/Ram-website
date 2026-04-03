@@ -297,7 +297,7 @@ const chatResponses = {
         }
     },
     doctors: {
-        text: "We have 8 expert specialists:\n\n• Dr. Rohit B.J. - Neurologist\n• Dr. Raghavendra Cheruku - Cardiologist\n• Dr. Vara Prasad Kuruva - Pulmonologist\n• Dr. Rajashekar V. - Dental Specialist\n• Dr. Siddharth Haroor - Nephrologist\n• Dr. C. Deepak - Gastroenterologist\n• Dr. Anusha Nagral - Dermatologist\n• Dr. M. Vedhika Sai - Physiotherapist"
+        text: "We have 9 expert specialists:\n\n• Dr. Rohith B.G. - Neurologist\n• Dr. Siddharth Heroor - Nephrologist\n• Dr. C. Deepak - Gastroenterologist\n• Dr. Raghavendra Cheruku - Cardiologist\n• Dr. Varaprasad Kuruva - Pulmonologist\n• Dr. Anusha Nagral - Dermatologist\n• Dr. Rajashekar V. - Dental Specialist\n• Dr. G.K Veresh - Physiotherapist\n• Dr. Veedika Sai - Physiotherapist"
     },
     services: {
         text: "We offer a wide range of services including:\n\n• Kidney & Renal Care\n• Cardiology & Heart Procedures\n• Neurology & Stroke Management\n• Pulmonology & Chest Medicine\n• Gastroenterology & Liver Care\n• Dental & Implant Surgery\n• Dermatology & Skin Care\n• Specialized Physiotherapy (Home Visits Available)"
