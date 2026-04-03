@@ -82,7 +82,13 @@ function closePopup() {
 }
 
 popupClose.addEventListener('click', closePopup);
-popupBook.addEventListener('click', closePopup);
+popupBook.addEventListener('click', (e) => {
+    e.preventDefault();
+    closePopup();
+    setTimeout(() => {
+        document.getElementById('appointment').scrollIntoView({ behavior: 'smooth' });
+    }, 100);
+});
 popupOverlay.addEventListener('click', (e) => {
     if (e.target === popupOverlay) closePopup();
 });
