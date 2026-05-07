@@ -93,6 +93,67 @@ popupOverlay.addEventListener('click', (e) => {
     if (e.target === popupOverlay) closePopup();
 });
 
+// ========== DOCTOR PROFILE MODAL ==========
+const profileOverlay = document.getElementById('profileOverlay');
+const profileClose = document.getElementById('profileClose');
+const profileBook = document.getElementById('profileBook');
+
+function openProfile() {
+    if (!profileOverlay) return;
+    profileOverlay.classList.add('active');
+    profileOverlay.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('profile-open');
+}
+
+function closeProfile() {
+    if (!profileOverlay) return;
+    profileOverlay.classList.remove('active');
+    profileOverlay.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('profile-open');
+}
+
+document.querySelectorAll('.doctor-card.has-profile').forEach(card => {
+    card.addEventListener('click', (e) => {
+        if (e.target.closest('a.btn')) return;
+        openProfile();
+    });
+    card.addEventListener('keydown', (e) => {
+        if (e.target.closest('a.btn')) return;
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            openProfile();
+        }
+    });
+});
+
+if (profileClose) {
+    profileClose.addEventListener('click', closeProfile);
+}
+
+if (profileOverlay) {
+    profileOverlay.addEventListener('click', (e) => {
+        if (e.target === profileOverlay) closeProfile();
+    });
+}
+
+if (profileBook) {
+    profileBook.addEventListener('click', (e) => {
+        e.preventDefault();
+        closeProfile();
+        setTimeout(() => {
+            const doctorSelect = document.getElementById('doctor');
+            if (doctorSelect) doctorSelect.value = 'Dr. Rohith B.G.';
+            document.getElementById('appointment').scrollIntoView({ behavior: 'smooth' });
+        }, 250);
+    });
+}
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && profileOverlay && profileOverlay.classList.contains('active')) {
+        closeProfile();
+    }
+});
+
 // ========== SCROLL REVEAL FOR DOCTOR CARDS ==========
 const observerOptions = {
     threshold: 0.1,
@@ -303,7 +364,7 @@ const chatResponses = {
         }
     },
     doctors: {
-        text: "We have 9 expert specialists:\n\n• Dr. Rohith B.G. - Neurologist\n• Dr. Siddharth Herur - Nephrologist\n• Dr. C. Deepak - Gastroenterologist\n• Dr. Raghavendra Cheruku - Cardiologist\n• Dr. Varaprasad Kuruva - Pulmonologist\n• Dr. Anusha Nagral - Dermatologist\n• Dr. Rajashekhar I - Dental Specialist\n• Dr. G.K. Veeresh - Physiotherapist\n• Dr. Veedika Sai - Physiotherapist"
+        text: "We have 10 expert specialists:\n\n• Dr. Rohith B.G. - Neurologist\n• Dr. Siddharth Herur - Nephrologist\n• Dr. Adithya Kumar - Emergency Care Specialist\n• Dr. C. Deepak - Gastroenterologist\n• Dr. Raghavendra Cheruku - Cardiologist\n• Dr. Varaprasad Kuruva - Pulmonologist\n• Dr. Anusha Nagral - Dermatologist\n• Dr. Rajashekhar I - Dental Specialist\n• Dr. G.K. Veeresh - Physiotherapist\n• Dr. Veedika Sai - Physiotherapist"
     },
     services: {
         text: "We offer a wide range of services including:\n\n• Kidney & Renal Care\n• Cardiology & Heart Procedures\n• Neurology & Stroke Management\n• Pulmonology & Chest Medicine\n• Gastroenterology & Liver Care\n• Dental & Implant Surgery\n• Dermatology & Skin Care\n• Specialized Physiotherapy (Home Visits Available)"
