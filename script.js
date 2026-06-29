@@ -94,15 +94,306 @@ popupOverlay.addEventListener('click', (e) => {
 });
 
 // ========== DOCTOR PROFILE MODAL ==========
+const doctorProfiles = {
+    'rohith-bg': {
+        photo: 'Doctors images/Rohith B.G.jpeg',
+        photoAlt: 'Dr. Rohith B.G.',
+        tag: 'Consultant Neurologist',
+        name: 'Dr. Rohith B.G.',
+        credentials: 'MD (General Medicine) · DM Neurology · FSVN',
+        quickfacts: [
+            { icon: 'fa-graduation-cap', text: "St. John's Medical College" },
+            { icon: 'fa-award', text: 'AIIMS Cochin Fellowship' },
+            { icon: 'fa-map-marker-alt', text: 'Adoni · Kurnool' }
+        ],
+        sections: [
+            {
+                type: 'about', badge: 'About',
+                heading: 'A Specialist in Complex & Rare Neurological Care',
+                intro: 'Dr. Rohith B.G. is a highly skilled consultant neurologist focused on the diagnosis and management of complex and rare neurological conditions. With deep expertise in stroke and vascular neurology, he has been at the forefront of advanced neurological care — delivering evidence-based outcomes and handling rare and critical cases.'
+            },
+            {
+                type: 'education', badge: 'Education & Qualifications',
+                items: [
+                    { icon: 'fa-user-md', title: 'MD — General Medicine', sub: 'Foundational training in internal medicine' },
+                    { icon: 'fa-brain', title: 'DM — Neurology', sub: "St. John's Medical College" },
+                    { icon: 'fa-award', title: 'FSVN — Stroke & Vascular Neurology', sub: 'Fellowship at AIIMS Cochin' }
+                ]
+            },
+            {
+                type: 'cards', badge: 'Areas of Expertise',
+                items: [
+                    { icon: 'fa-heartbeat', title: 'Stroke & Vascular Neurology', text: 'Advanced treatment for ischemic and hemorrhagic strokes, with a focus on rapid recovery and prevention.' },
+                    { icon: 'fa-brain', title: 'Complex Neurological Disorders', text: 'Comprehensive management of intricate nervous system conditions.' },
+                    { icon: 'fa-search', title: 'Undiagnosed Conditions', text: 'Expertise in evaluating challenging, difficult-to-diagnose neurological cases.' },
+                    { icon: 'fa-microscope', title: 'Advanced Neuro Diagnostics', text: 'Cutting-edge diagnostic technologies for accurate neurological assessment.' },
+                    { icon: 'fa-bolt', title: 'Critical Neurology Care', text: 'Specialized intensive care for acute neurological emergencies.' }
+                ]
+            },
+            {
+                type: 'stats', badge: 'Experience',
+                items: [
+                    { number: '3-4+', label: 'Years managing complex & rare cases' },
+                    { number: '100%', label: 'Evidence-based clinical approach' },
+                    { number: '24/7', label: 'Critical neurology emergency care' }
+                ],
+                note: 'Pioneer in managing rare and complex neurological cases, with extensive experience in high-risk and technically challenging scenarios.'
+            },
+            {
+                type: 'locations', badge: 'Clinical Locations',
+                items: [
+                    { tag: 'Primary', primary: true, icon: 'fa-hospital', title: 'RR Hospitals', text: 'Kurnool, Andhra Pradesh' },
+                    { tag: 'Visiting', primary: false, icon: 'fa-clinic-medical', title: 'Adoni Neuro Care', text: 'Available every Friday at GK Clinics, Adoni' }
+                ]
+            }
+        ],
+        cta: {
+            heading: 'Consult Dr. Rohith B.G.',
+            text: 'Book an appointment or reach out directly for urgent neurology care.',
+            phone: '+918309166593', phoneLabel: '+91 83091 66593',
+            bookValue: 'Dr. Rohith B.G.'
+        }
+    },
+
+    'deepak': {
+        photo: 'Doctors images/C. Deepak.jpeg',
+        photoAlt: 'Dr. C. Deepak',
+        tag: 'Consultant Medical Gastroenterologist',
+        name: 'Dr. C. Deepak',
+        credentials: 'MD (General Medicine) · DM (Gastroenterology)',
+        quickfacts: [
+            { icon: 'fa-user-md', text: 'MD General Medicine' },
+            { icon: 'fa-stethoscope', text: 'DM Gastroenterology' },
+            { icon: 'fa-map-marker-alt', text: 'GK Clinics, Adoni' }
+        ],
+        sections: [
+            {
+                type: 'about', badge: 'About',
+                heading: 'Comprehensive Digestive, Liver & Pancreatic Care',
+                intro: "Dr. C. Deepak is a highly qualified Medical Gastroenterologist specializing in the diagnosis, treatment, and prevention of diseases affecting the digestive system, liver, pancreas, and biliary tract. With advanced training in Gastroenterology and a patient-centered approach, Dr. Deepak is committed to providing comprehensive, evidence-based care for a wide range of gastrointestinal disorders. His expertise includes the management of complex digestive diseases, liver disorders, inflammatory bowel diseases, gastrointestinal bleeding, pancreatic disorders, and therapeutic endoscopic procedures."
+            },
+            {
+                type: 'categories', badge: 'Services Offered',
+                heading: 'Conditions & Treatments',
+                items: [
+                    { icon: 'fa-notes-medical', title: 'Gastrointestinal Disorders', list: ['Acid reflux (GERD)', 'Gastritis and peptic ulcer disease', 'Irritable bowel syndrome (IBS)', 'Chronic diarrhea and constipation', 'Gastrointestinal infections', 'Gastrointestinal bleeding'] },
+                    { icon: 'fa-disease', title: 'Liver Diseases', list: ['Fatty liver disease (MASLD / NAFLD)', 'Viral hepatitis (Hepatitis B & C)', 'Alcohol-related liver disease', 'Cirrhosis and its complications', 'Autoimmune liver diseases'] },
+                    { icon: 'fa-virus', title: 'Inflammatory Bowel Disease', list: ['Ulcerative colitis', "Crohn's disease"] },
+                    { icon: 'fa-droplet', title: 'Pancreatic & Biliary Disorders', list: ['Acute and chronic pancreatitis', 'Gallstone-related diseases', 'Bile duct disorders'] },
+                    { icon: 'fa-microscope', title: 'Endoscopic Procedures', list: ['Upper GI Endoscopy', 'Colonoscopy', 'Polypectomy', 'Endoscopic management of GI bleeding', 'Diagnostic and therapeutic endoscopic procedures'] }
+                ]
+            },
+            {
+                type: 'checklist', badge: 'Why Choose Dr. C. Deepak?',
+                items: ['Expertise in advanced gastroenterology care', 'Comprehensive evaluation and personalized treatment plans', 'Evidence-based clinical practice', 'Compassionate and patient-focused approach', 'Focus on preventive digestive healthcare']
+            },
+            {
+                type: 'checklist', badge: 'Conditions Commonly Treated',
+                items: ['Abdominal pain', 'Bloating and indigestion', 'Heartburn and acid reflux', 'Difficulty swallowing', 'Blood in stools', 'Chronic diarrhea', 'Chronic constipation', 'Liver disease', 'Jaundice', 'Weight loss of gastrointestinal origin']
+            }
+        ],
+        cta: {
+            heading: 'Consult Dr. C. Deepak',
+            text: 'Book an appointment for expert gastroenterology, liver and endoscopy care.',
+            phone: '+919700949414', phoneLabel: '+91 97009 49414',
+            bookValue: 'Dr. C. Deepak'
+        }
+    },
+
+    'siddharth-herur': {
+        photo: 'Doctors images/Siddharth Herur.jpeg',
+        photoAlt: 'Dr. Siddharth Herur',
+        tag: 'Consultant Nephrologist & Renal Transplant Physician',
+        name: 'Dr. Siddharth Herur',
+        credentials: 'MD (General Medicine) · DM (Nephrology) · DrNB (Nephrology) · MRCP-SCE (UK)',
+        quickfacts: [
+            { icon: 'fa-graduation-cap', text: 'DM Nephrology, NIMS Hyderabad' },
+            { icon: 'fa-award', text: 'Best Senior Resident, NIMS 2022' },
+            { icon: 'fa-map-marker-alt', text: 'Adoni · Kurnool' }
+        ],
+        sections: [
+            {
+                type: 'about', badge: 'About',
+                heading: 'Three Degrees in Nephrology & 10+ Years in Renal Transplant',
+                intro: "Dr. Siddharth Herur is a Consultant Nephrologist and Renal Transplant Physician — the only doctor in Rayalaseema holding three degrees in Nephrology, with over 10 years of experience in nephrology and renal transplantation. He started the kidney transplant programme in Kurnool and at Medicover Hospital. Trained at the prestigious NIMS, Hyderabad — among the best kidney hospitals in South India — he has worked across leading nephrology departments at Manipal (KMC, Mangalore), St. John's (Bengaluru), NIMS Hyderabad, and Citizens Hospital, Hyderabad."
+            },
+            {
+                type: 'education', badge: 'Education & Qualifications',
+                items: [
+                    { icon: 'fa-user-md', title: 'MD — General Medicine', sub: 'Manipal University' },
+                    { icon: 'fa-droplet', title: 'DM — Nephrology', sub: 'NIMS, Hyderabad' },
+                    { icon: 'fa-certificate', title: 'DrNB — Nephrology', sub: 'National Board of Examinations' },
+                    { icon: 'fa-award', title: 'MRCP — SCE (UK)', sub: 'Royal College of Physicians, UK' }
+                ]
+            },
+            {
+                type: 'cards', badge: 'Expertise & Skills',
+                items: [
+                    { icon: 'fa-syringe', title: 'Renal Biopsy', text: 'Image-guided native and transplant kidney biopsy.' },
+                    { icon: 'fa-hospital-user', title: 'Renal Transplantation', text: 'Live-related, cadaver, ABO-incompatible and HLA-incompatible transplants.' },
+                    { icon: 'fa-droplet', title: 'Dialysis (Hemodialysis)', text: 'Maintenance and acute hemodialysis support.' },
+                    { icon: 'fa-arrows-rotate', title: 'CRRT', text: 'Continuous renal replacement therapy for critically ill patients.' },
+                    { icon: 'fa-house-medical', title: 'Peritoneal Dialysis', text: 'PD initiation, training and peritoneal dialysis catheter insertion.' },
+                    { icon: 'fa-disease', title: 'Lupus Nephritis', text: 'Diagnosis and management of lupus and other glomerular diseases.' },
+                    { icon: 'fa-heart-pulse', title: 'CKD & AKI', text: 'Chronic kidney disease and acute kidney injury management.' },
+                    { icon: 'fa-child', title: 'Pediatric Nephrology', text: 'Kidney care for children.' },
+                    { icon: 'fa-stethoscope', title: 'Interventional Nephrology', text: 'Dialysis catheter and permacath insertion.' }
+                ]
+            },
+            {
+                type: 'checklist', badge: 'Conditions Treated',
+                items: ['Chronic kidney disease', 'Leg swelling (edema)', 'Dialysis', 'Kidney biopsy', 'Kidney transplant', 'Urinary problems', 'Diabetes & BP-related kidney disease', 'Kidney stones', 'Kidney infections', 'Flank / side pain', 'Burning urination']
+            },
+            {
+                type: 'cards', badge: 'Memberships & Recognition',
+                items: [
+                    { icon: 'fa-id-badge', title: 'ISN', text: 'Member, Indian Society of Nephrology.' },
+                    { icon: 'fa-id-badge', title: 'ISOT', text: 'Member, Indian Society of Organ Transplantation.' },
+                    { icon: 'fa-trophy', title: 'Best Senior Resident', text: 'Outgoing Senior Resident Award, NIMS Hyderabad — 2022.' },
+                    { icon: 'fa-book-open', title: '5 Publications', text: 'National and international peer-reviewed publications.' }
+                ]
+            },
+            {
+                type: 'stats', badge: 'Experience',
+                items: [
+                    { number: '10+', label: 'Years in nephrology & transplant' },
+                    { number: '3', label: 'Postgraduate nephrology degrees' },
+                    { number: '5', label: 'National & international publications' }
+                ],
+                note: 'Started the kidney transplant programme in Kurnool and at Medicover Hospital, bringing advanced renal transplant care to the region.'
+            },
+            {
+                type: 'education', badge: 'Career Journey',
+                items: [
+                    { icon: 'fa-hospital', title: 'Senior Resident — Nephrology', sub: 'KMC, Mangalore (Manipal University) · 2015–18' },
+                    { icon: 'fa-hospital', title: 'Senior Resident — Nephrology', sub: "St. John's, Bengaluru · 2018–19" },
+                    { icon: 'fa-graduation-cap', title: 'DM Nephrology Resident', sub: 'NIMS, Hyderabad · 2019–22' },
+                    { icon: 'fa-chalkboard-user', title: 'Assistant Professor', sub: 'NIMS, Hyderabad · 2022–23' },
+                    { icon: 'fa-user-doctor', title: 'Consultant Nephrologist', sub: 'Citizens Hospital, Hyderabad · 2023–24' },
+                    { icon: 'fa-hospital-user', title: 'Consultant Nephrologist & Transplant Physician', sub: 'Medicover Hospital · 2024 – Present' }
+                ]
+            }
+        ],
+        cta: {
+            heading: 'Consult Dr. Siddharth Herur',
+            text: 'One stop solution for all your kidney problems — book an appointment or call directly.',
+            phone: '+919700949414', phoneLabel: '+91 97009 49414',
+            bookValue: 'Dr. Siddharth Herur'
+        }
+    }
+};
+
 const profileOverlay = document.getElementById('profileOverlay');
 const profileClose = document.getElementById('profileClose');
-const profileBook = document.getElementById('profileBook');
+const profileContent = document.getElementById('profileContent');
 
-function openProfile() {
-    if (!profileOverlay) return;
+function renderProfileSection(s) {
+    let block = '';
+    if (s.type === 'education') {
+        block = '<div class="profile-education">' + s.items.map(it => `
+                        <div class="education-item">
+                            <div class="education-icon"><i class="fas ${it.icon}"></i></div>
+                            <div>
+                                <h4>${it.title}</h4>
+                                <p>${it.sub}</p>
+                            </div>
+                        </div>`).join('') + '</div>';
+    } else if (s.type === 'cards') {
+        block = '<div class="expertise-grid">' + s.items.map(it => `
+                        <div class="expertise-card">
+                            <div class="expertise-icon"><i class="fas ${it.icon}"></i></div>
+                            <h4>${it.title}</h4>
+                            ${it.text ? `<p>${it.text}</p>` : ''}
+                        </div>`).join('') + '</div>';
+    } else if (s.type === 'categories') {
+        block = '<div class="expertise-grid">' + s.items.map(it => `
+                        <div class="expertise-card">
+                            <div class="expertise-icon"><i class="fas ${it.icon}"></i></div>
+                            <h4>${it.title}</h4>
+                            <ul class="profile-list">${it.list.map(li => `<li>${li}</li>`).join('')}</ul>
+                        </div>`).join('') + '</div>';
+    } else if (s.type === 'stats') {
+        block = '<div class="profile-stats">' + s.items.map(it => `
+                        <div class="profile-stat">
+                            <span class="profile-stat-number">${it.number}</span>
+                            <span class="profile-stat-label">${it.label}</span>
+                        </div>`).join('') + '</div>' + (s.note ? `<p>${s.note}</p>` : '');
+    } else if (s.type === 'locations') {
+        block = '<div class="locations-grid">' + s.items.map(it => `
+                        <div class="location-card">
+                            <div class="location-tag ${it.primary ? 'primary' : ''}">${it.tag}</div>
+                            <h4><i class="fas ${it.icon}"></i> ${it.title}</h4>
+                            <p>${it.text}</p>
+                        </div>`).join('') + '</div>';
+    } else if (s.type === 'checklist') {
+        block = '<ul class="profile-checklist">' + s.items.map(li => `<li><i class="fas fa-circle-check"></i> ${li}</li>`).join('') + '</ul>';
+    }
+    return `<div class="profile-section">
+                    ${s.badge ? `<span class="profile-section-badge">${s.badge}</span>` : ''}
+                    ${s.heading ? `<h3>${s.heading}</h3>` : ''}
+                    ${s.intro ? `<p>${s.intro}</p>` : ''}
+                    ${block}
+                </div>`;
+}
+
+function renderProfile(p) {
+    return `
+            <div class="profile-header">
+                <div class="profile-header-bg">
+                    <div class="profile-header-shape shape-a"></div>
+                    <div class="profile-header-shape shape-b"></div>
+                </div>
+                <div class="profile-header-inner">
+                    <div class="profile-photo">
+                        <img src="${p.photo}" alt="${p.photoAlt}">
+                    </div>
+                    <div class="profile-heading">
+                        <span class="profile-tag"><i class="fas fa-stethoscope"></i> ${p.tag}</span>
+                        <h2 id="profileName">${p.name}</h2>
+                        <p class="profile-credentials">${p.credentials}</p>
+                        <div class="profile-quickfacts">
+                            ${p.quickfacts.map(q => `<span><i class="fas ${q.icon}"></i> ${q.text}</span>`).join('')}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="profile-body">
+                ${p.sections.map(renderProfileSection).join('')}
+                <div class="profile-cta">
+                    <div class="profile-cta-text">
+                        <h3>${p.cta.heading}</h3>
+                        <p>${p.cta.text}</p>
+                    </div>
+                    <div class="profile-cta-actions">
+                        <a href="tel:${p.cta.phone}" class="btn btn-outline-dark"><i class="fas fa-phone-alt"></i> ${p.cta.phoneLabel}</a>
+                        <a href="#appointment" class="btn btn-primary" id="profileBook"><i class="fas fa-calendar-check"></i> Book Appointment</a>
+                    </div>
+                </div>
+            </div>`;
+}
+
+function openProfile(key) {
+    if (!profileOverlay || !profileContent) return;
+    const data = doctorProfiles[key];
+    if (!data) return;
+    profileContent.innerHTML = renderProfile(data);
     profileOverlay.classList.add('active');
     profileOverlay.setAttribute('aria-hidden', 'false');
     document.body.classList.add('profile-open');
+    profileContent.scrollTop = 0;
+
+    const profileBook = document.getElementById('profileBook');
+    if (profileBook) {
+        profileBook.addEventListener('click', (e) => {
+            e.preventDefault();
+            closeProfile();
+            setTimeout(() => {
+                const doctorSelect = document.getElementById('doctor');
+                if (doctorSelect) doctorSelect.value = data.cta.bookValue;
+                document.getElementById('appointment').scrollIntoView({ behavior: 'smooth' });
+            }, 250);
+        });
+    }
 }
 
 function closeProfile() {
@@ -113,15 +404,16 @@ function closeProfile() {
 }
 
 document.querySelectorAll('.doctor-card.has-profile').forEach(card => {
+    const key = card.getAttribute('data-doctor');
     card.addEventListener('click', (e) => {
         if (e.target.closest('a.btn')) return;
-        openProfile();
+        openProfile(key);
     });
     card.addEventListener('keydown', (e) => {
         if (e.target.closest('a.btn')) return;
         if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
-            openProfile();
+            openProfile(key);
         }
     });
 });
@@ -133,18 +425,6 @@ if (profileClose) {
 if (profileOverlay) {
     profileOverlay.addEventListener('click', (e) => {
         if (e.target === profileOverlay) closeProfile();
-    });
-}
-
-if (profileBook) {
-    profileBook.addEventListener('click', (e) => {
-        e.preventDefault();
-        closeProfile();
-        setTimeout(() => {
-            const doctorSelect = document.getElementById('doctor');
-            if (doctorSelect) doctorSelect.value = 'Dr. Rohith B.G.';
-            document.getElementById('appointment').scrollIntoView({ behavior: 'smooth' });
-        }, 250);
     });
 }
 
