@@ -280,6 +280,63 @@ const doctorProfiles = {
             phone: '+919700949414', phoneLabel: '+91 97009 49414',
             bookValue: 'Dr. Siddharth Herur'
         }
+    },
+
+    'varaprasad-kuruva': {
+        photo: 'Doctors images/Varaprasad Kuruva.jpeg',
+        photoAlt: 'Dr. Varaprasad Kuruva',
+        tag: 'Consultant Interventional Pulmonologist',
+        name: 'Dr. Varaprasad Kuruva',
+        credentials: 'MBBS · DNB (NIMS, Hyderabad) · FIP',
+        quickfacts: [
+            { icon: 'fa-graduation-cap', text: 'DNB — NIMS, Hyderabad' },
+            { icon: 'fa-award', text: 'Fellowship in Interventional Pulmonology' },
+            { icon: 'fa-map-marker-alt', text: 'Kurnool' }
+        ],
+        sections: [
+            {
+                type: 'about', badge: 'About',
+                heading: 'Advanced Lung, Airway & Pleural Care',
+                intro: 'Dr. Varaprasad Kuruva is a Consultant Interventional Pulmonologist trained at the prestigious NIMS, Hyderabad, with a Fellowship in Interventional Pulmonology (FIP). He specializes in the diagnosis and treatment of respiratory diseases — from asthma, COPD and pulmonary infections to lung cancer evaluation and sleep disorders — along with advanced bronchoscopic and thoracoscopic procedures for complex airway and pleural conditions.'
+            },
+            {
+                type: 'checklist', badge: 'Areas of Interest',
+                items: [
+                    'Asthma, Allergies & COPD management',
+                    'Pulmonary infections (TB & Pneumonia)',
+                    'Lung cancer screening & evaluation',
+                    'Interstitial lung diseases (ILD)',
+                    'Covid management & Post Covid Lung recovery',
+                    'Sleep apnoea & snoring disorders (OSA)',
+                    'Pulmonary Rehabilitation',
+                    'Advanced Pulmonary function tests'
+                ]
+            },
+            {
+                type: 'cards', badge: 'Expertise In',
+                items: [
+                    { icon: 'fa-lungs', title: 'Diagnostic & Therapeutic Bronchoscopy', text: 'Advanced airway evaluation and treatment using bronchoscopy.' },
+                    { icon: 'fa-microscope', title: 'Diagnostic Thoracoscopy', text: 'Minimally invasive pleural biopsy for accurate diagnosis.' },
+                    { icon: 'fa-syringe', title: 'Therapeutic Thoracoscopy', text: 'Pleural biopsy followed by Adhesiolysis / Talc Pleurodesis.' },
+                    { icon: 'fa-wind', title: 'Airway Foreign Body Removal', text: 'Safe bronchoscopic removal of inhaled foreign bodies.' },
+                    { icon: 'fa-droplet', title: 'IPC Placement', text: 'Indwelling Pleural Catheter for recurrent malignant pleural effusion.' },
+                    { icon: 'fa-procedures', title: 'ICD Insertion', text: 'Intercostal chest drain placement for pleural conditions.' },
+                    { icon: 'fa-compress-arrows-alt', title: 'Pig Tail Catheterisation', text: 'Minimally invasive drainage of fluid or air from the chest.' }
+                ]
+            },
+            {
+                type: 'locations', badge: 'Clinical Location',
+                items: [
+                    { tag: 'Primary', primary: true, icon: 'fa-hospital', title: 'Gemcare Kamineni Hospitals', text: 'Opp. RTC Bus Stand, Kurnool, Andhra Pradesh' }
+                ]
+            }
+        ],
+        cta: {
+            heading: 'Consult Dr. Varaprasad Kuruva',
+            text: 'Book an appointment for expert lung, airway and pleural care.',
+            phone: '+917038870388', phoneLabel: '+91 70388 70388',
+            bookValue: 'Dr. Varaprasad Kuruva'
+        }
     }
 };
 
